@@ -27,3 +27,25 @@ move from calling an AI api once to desiging an AI pipelines
 - invoke() = single inoput <-> signle output
 - stream() = input <-> output arrives in chunks
 - batch() = multiple inputs parralel
+
+
+## for ts server run npm install -D tsx
+ "scripts": {
+    "dev": "tsx watch ./src/index.ts"
+  },
+
+# promptTemplate = 
+
+```javascript
+import {ChatPromptTemplate} from "@langchain/core/prompts"
+ChatPromptTemplate.fromMessages();
+
+prompt = `
+You are the movie recomondation expert.
+Return high quality recommendations based on:
+- user request
+- genre
+- mood
+- count
+`
+```
