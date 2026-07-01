@@ -20,7 +20,7 @@ const promptTemplate = ChatPromptTemplate.fromMessages(
             - genre
             - mood
             - count
-            Every movie should feel international.
+            Every movie should feel intentional.
             Do not recommend only the most obvious titles every time.
             `], // sytem message who the ai is + how it should behave (sent on every request before the users messages) - sets the personality and rules for the system
 
@@ -47,11 +47,11 @@ export async function getRecommendations(
     }
 ) {
 
-    console.log("Inside getRecommendations");
+    // console.log("Inside getRecommendations");
     const chain = promptTemplate.pipe(model); // this .pipe(model) = LCEL - LangChain Expression Language
     // connect components into chain
     // input - promptTemplate -> variables -> call model(gemini) - > result
-    console.log("Before invoke");
+    // console.log("Before invoke");
 
     const response = await chain.invoke({
         userPrompt: input.userPrompt,
@@ -60,7 +60,7 @@ export async function getRecommendations(
         count: input.count
     })
 
-    console.log("After invoke");
+    // console.log("After invoke");
 
     return response.text;
 }
