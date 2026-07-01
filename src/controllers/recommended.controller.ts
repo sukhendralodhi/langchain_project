@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getRecommendations } from "../services/langchain.service.js";
+import { getStructuredRecommendation } from "../services/langchain.service.js";
 
 export async function recommendedMovies(req: Request, res: Response) {
     try {
@@ -18,7 +18,7 @@ export async function recommendedMovies(req: Request, res: Response) {
             count = 2
         } = req.body;
 
-        const result = await getRecommendations(
+        const result = await getStructuredRecommendation(
             {
                 userPrompt,
                 genre,

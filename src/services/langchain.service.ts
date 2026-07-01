@@ -1,6 +1,7 @@
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { ChatGoogle } from "@langchain/google/node";
 import dotnev from "dotenv";
+import { RecommendationSchema } from "../schemas/movie.schema.js";
 dotnev.config();
 
 const model = new ChatGoogle({
@@ -65,3 +66,28 @@ export async function getRecommendations(
     return response.text;
 }
 
+
+// zod + structured output
+const structuredModel = model.withStructuredOutput(RecommendationSchema);
+
+interface RecommendationInput {
+    userPrompt: string;
+    genre: string;
+    mood: string;
+    count: number;
+}
+
+export async function getStructuredRecommendation(
+    input: RecommendationInput
+) {
+    const chain = promptTemplate.pipe(structuredModel);
+    const result = await chain.invoke({
+        userPrompt: input.userPrompt,
+        genre: input.genre,
+        mood: input.mood,
+        count: input.count
+    });
+
+    console.log(result);
+    return result;
+}
